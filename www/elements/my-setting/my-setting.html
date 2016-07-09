@@ -1,0 +1,125 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<dom-module id="my-setting">
+  <template>
+    <style>
+      :host {
+        display: block;
+		--paper-item-icon-width{min-height:64px;}
+      }
+       span {
+        @apply(--paper-font-body1);
+      }
+      .paper-input-container-1 .unfocused-line.paper-input-container{background:#ccb200 none repeat scroll 0 0 !important; height:2px;}
+	  paper-button{ background-color: #ccb200;   display: block;
+    margin: 0 auto;
+    width: 95%; box-shadow:0  !important;}
+	  paper-dropdown-menu{width:100%;}
+	  iron-dropdown{width:50% !important}
+	     .list_contact{
+	   background-color:#FFF;
+   }
+  .tmarg{   border-bottom: 2px solid #b3b3b3;
+	  margin: 10px 0;
+	  padding-bottom: 10px;
+   }
+   .memenu{margin:10px;}
+   paper-icon-item{background:#FFF;
+   color:#666;
+   margin:2px 0;
+   }
+    a {
+
+    text-decoration: none;
+    color: var(--menu-link-color);
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+    </style>
+ 
+   <div role="listbox">
+  
+  <section class="memenu">
+   <a data-route="account" href="{{baseUrl}}account">
+    <paper-icon-item>
+    <iron-icon icon="account-circle" item-icon></iron-icon>
+    <paper-item-body two-line>
+    <div>MY Accounts</div>
+    </paper-item-body> 
+    </paper-icon-item>
+    </a>
+   <a data-route="Preference" href="{{baseUrl}}Preference"> 
+    <paper-icon-item>
+    <iron-icon icon="settings" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+    <div>Preferences</div>
+    </paper-item-body>
+    </paper-icon-item>
+    </a>   
+       <a data-route="notification" href="{{baseUrl}}notification"> 
+    <paper-icon-item>
+    <iron-icon icon="feedback" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+    <div>Notifications </div>
+    </paper-item-body>
+    </paper-icon-item>
+    </a>
+   <a data-route="feedback" href="{{baseUrl}}feedback"> 
+    <paper-icon-item>
+    <iron-icon icon="mail" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+    <div>Feedback </div>
+    </paper-item-body>
+    </paper-icon-item>
+    </a>
+    <paper-icon-item>
+    <iron-icon icon="info" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+    <div>About </div>
+    </paper-item-body>
+    </paper-icon-item>
+    
+  </section>
+<paper-button raised onclick="_submit(event)">Submit</paper-button>
+                    
+
+
+      <template >     </template>
+   
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-setting',
+
+   
+      });
+    })();
+  </script>
+</dom-module>

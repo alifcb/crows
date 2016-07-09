@@ -1,0 +1,272 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<dom-module id="my-mynews">
+  <template>
+    <style>
+      :host {
+        display: block;
+		--paper-item-icon-width{min-height:64px;}
+      }
+       span {
+        @apply(--paper-font-body1);
+      }
+   paper-dropdown-menu{width:90% !important; margin:0 auto; display:block}
+   paper-header-panel {
+	   min-height:470px;
+}
+paper-menu-button{position:fixed;
+width:90%;
+left:30px;
+}
+
+ .paper-header {
+	height: 0px;
+	font-size: 16px;
+	line-height: 60px;
+	padding: 0 ;
+	color: white;
+	transition: height 0.2s;
+   background: var(--primary-color);
+   position:relative;
+  }
+  .paper-header.tall {
+	height: 120px;
+  }
+  .paper-header.medium-tall {
+	height: 150px;
+	line-height: 50px;
+  }
+  .content {
+	min-height: 500px;
+	position:relative;
+	z-index:3;
+  }
+  .colorhead .paper-header {
+	background-color: var(--primary-color);
+  }
+  paper-menu iron-icon {
+  margin-right: 33px;
+  opacity: 0.54;
+  }
+  .bigicon {
+    --iron-icon-height: 64px;
+    --iron-icon-width: 64px;
+	margin:0 auto; display:block; position:relative;
+  }
+  paper-menu a {
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+
+    text-decoration: none;
+    color: var(--menu-link-color);
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    min-height: 48px;
+    padding: 0 16px;
+  }
+ .catetop{    background-color: #333;
+    height: 240px;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;} 
+	.filters{--paper-input-container-label:{color:#FFF !important ;};
+--paper-input-container-input:{  color:#fff !important ;  };
+--paper-input-container-underline:{ background-color:#fff !important }
+--paper-input-container-underline-focus:{ background-color:#fff !important }}
+
+paper-dropdown-menu{width:100%;}
+paper-input{width:99%; border:1px; margin:0 auto; display:block}
+.combow{ --paper-input-container-input:{  color: var(--primary-color) !important; };
+--paper-input-container-underline:{ background-color: var(--primary-color) !important }
+--paper-input-container-underline-focus:{ background-color: var(--primary-color) !important }}
+
+
+--paper-input-container-underline:{ background-color:#999 !important }
+--paper-input-container-underline-focus:{ background-color:#999 !important }}
+
+paper-tabs[no-bar] paper-tab.iron-selected {
+    color: var(--primary-color);
+	background-color: #222222;
+  }
+  paper-tabs {
+  background-color: #333333;
+  color: #DFDFDF;
+ }
+paper-fab.blue {
+  --paper-fab-background: var(--paper-light-blue-500);
+  --paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
+  position:fixed;
+  bottom:20px;
+  right:10px;
+  z-index:100;
+}
+	paper-fab.red {
+	  --paper-fab-background: var(--paper-light-red-500);	  
+	  --paper-fab-keyboard-focus-background: var(--paper-light-red-900);
+	  position:absolute;
+	  top:40px;
+	  left:20px;
+	  z-index:1;
+	}	
+ 
+	.combo{	background-color:var(--secondary-text-color); z-index:2; margin:5px 0;}
+	.filtere{ padding:0 5px 5px;	background-color: var(--primary-color); z-index:2;}
+ 
+	paper-card.rate { @apply(--layout-horizontal);
+	background-color: var(--secondary-text-color); border-bottom:1px #999 solid;}
+	.rate-image {
+	  width: 90px;
+	  height: 70px;
+	  background: url('../../images/app/list.jpg');
+	  background-size: cover;
+	  margin:5px;
+	  border-radius: 4px;
+	}
+	.rate-content {
+	  @apply(--layout-flex);
+	  float: left;
+	}
+	.rate-header { font-size:14px; color:#666 !important;}
+	.rate-name { color: var(--paper-grey-600); font-size:11px;  margin: 3px 0 4px; }
+	.rate-name span {   margin: 10px 20px; font-size:11px; }
+	.onepi span{ color:#06F;}
+	 .heartl{ padding:7px 10px;    font-size:14px; background-color:#EAEAEA; margin:0 1px 0 70px; border-bottom:1px solid #CDCDCD}
+	 .heart2{ padding:7px 10px;  font-size:14px; background-color:#EAEAEA; margin:0 0 0 0px; border-bottom:1px solid #CDCDCD}
+	paper-icon-button.rate-icon {
+	  --iron-icon-fill-color: white;
+	  --iron-icon-stroke-color: var(--paper-grey-600);	
+
+	}
+	.favers{
+    --iron-icon-height: 32px;
+    --iron-icon-width: 32px;
+	--iron-icon-fill-color: #666;
+
+  }
+	.iconsearch{
+		--iron-icon-fill-color:#0cc;
+	}
+ 	.iconfilter{
+		--iron-icon-fill-color:#fff;
+	}
+	  .floated-label-placeholder {
+		display:none !important;
+    }
+    </style>
+ 
+<section class="list_contact">
+<paper-header-panel>
+  <div class="content">
+
+   <a data-route="send" href="{{baseUrl}}send"><paper-fab icon="add" title="add" class="blue"></paper-fab></a>
+  <section class="combo"> 
+<paper-input  class="combow" 
+    placeholder="search for cats" autosave="test" results="5">
+     <paper-icon-button class="iconsearch" prefix icon="search"></paper-icon-button>
+</paper-input>
+
+ </section>  
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="create"></iron-icon> </a>
+      <a class="heart2"><iron-icon class="favers" icon="delete"></iron-icon> </a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album</div>
+      <div class="rate-name">Mac Miller</div>
+      <div>Live from space</div>
+    </div>
+  </div>
+
+</paper-card>
+<paper-card class="rate"> 
+ <div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album</div>
+      <div class="rate-name">Mac Miller</div>
+      <div>Live from space</div>
+    </div>
+  </div>
+
+</paper-card>
+<paper-card class="rate"> 
+ <div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album</div>
+      <div class="rate-name">Mac Miller</div>
+      <div>Live from space</div>
+    </div>
+  </div>
+
+</paper-card>
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album</div>
+      <div class="rate-name">Mac Miller</div>
+      <div>Live from space</div>
+    </div>
+  </div>
+
+</paper-card>
+</div>
+  </paper-header-panel>
+  <section class="filtere">
+<paper-input class="filters" 
+    placeholder="filter ..." autosave="test" results="5">
+     <paper-icon-button class="iconfilter" prefix icon="search"></paper-icon-button>
+</paper-input> 
+</section>
+
+   
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-mynews',
+
+   
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,678 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../../bower_components/google-map/google-map-poly.html">
+<link rel="import" href="../../bower_components/google-map/google-map-directions.html">
+<link rel="import" href="../../bower_components/google-apis/google-apis.html">
+<dom-module id="my-one">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+       span {
+        @apply(--paper-font-body1);
+      }
+   paper-dropdown-menu{width:90% !important; margin:0 auto; display:block}
+   paper-header-panel {
+	   min-height:470px;
+}
+paper-menu-button{position:fixed;
+width:90%;
+left:30px;
+}
+
+ .paper-header {
+	height: 0px;
+	font-size: 16px;
+	line-height: 60px;
+	padding: 0 ;
+	color: white;
+	transition: height 0.2s;
+   background: var(--primary-color);
+   position:relative;
+  }
+  .paper-header.tall {
+	height: 120px;
+  }
+  .paper-header.medium-tall {
+	height: 150px;
+	line-height: 50px;
+  }
+  .content {
+	min-height: 500px;
+	position:relative;
+	z-index:3;
+  }
+  .colorhead .paper-header {
+	background-color: var(--primary-color);
+  }
+  paper-menu iron-icon {
+  margin-right: 33px;
+  opacity: 0.54;
+  }
+         #drawer.paper-drawer-panel > [drawer] {
+	  z-index:10;
+    }
+	  paper-drawer-panel {
+	  z-index:10;
+    }
+  .bigicon {
+    --iron-icon-height: 64px;
+    --iron-icon-width: 64px;
+	margin:0 auto; display:block; position:relative;
+  }
+  paper-menu a {
+    @apply(--layout-horizontal);
+    @apply(--layout-center);
+
+    text-decoration: none;
+    color: var(--menu-link-color);
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    min-height: 48px;
+    padding: 0 16px;
+  }
+ .catetop{    background-color: #333;
+    height: 150px;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 5;} 
+	.catego{--paper-input-container-label:{color:#FFF !important ;};
+--paper-input-container-input:{  color:#fff !important ;  };
+--paper-input-container-underline:{ background-color:#fff !important }
+--paper-input-container-underline-focus:{ background-color:#fff !important }}
+
+paper-dropdown-menu{width:100%;}
+paper-input{width:99%; border:1px; margin:0 auto; display:block}
+.combow{ --paper-input-container-input:{  color:#fff !important; };
+--paper-input-container-underline:{ background-color:#fff !important };
+--paper-input-container-underline-focus:{ background-color:#fff !important };
+--paper-input-container-label-floating:{ display:none !important; }}
+
+.filters{--paper-input-container:{border:1px #999 solid; padding:0;  margin:3px 0 0};
+--paper-input-container-underline:{ background-color:#999 !important }
+--paper-input-container-underline-focus:{ background-color:#999 !important }
+--paper-input-container-label-floating:{ display:none !important; }}
+
+  paper-tabs[no-bar] paper-tab.iron-selected {
+    color: var(--primary-color);
+	background-color: #222222;
+	text-align:center;
+  }
+
+  paper-tabs {
+  background-color: #333333;
+  color: #DFDFDF;
+  text-align:center !important;
+ }
+ .tabbl{
+	position:fixed;
+	bottom: 0px;
+	right: 0px;
+	z-index: 10;
+	width:100%;
+ }
+ .card-content{padding:8px 5px;}
+paper-fab.blue {
+  --paper-fab-background: var(--paper-light-blue-500);
+  --paper-fab-keyboard-focus-background: var(--paper-light-blue-900);
+  position:fixed;
+  bottom:105px;
+  right:15px;
+  z-index:100;
+}
+tabbs{
+--paper-tabs:{
+	width:25%;
+}}
+	paper-fab.red {
+	  --paper-fab-background: var(--paper-light-red-500);	  
+	  --paper-fab-keyboard-focus-background: var(--paper-light-red-900);
+	  position:absolute;
+	  top:40px;
+	  left:20px;
+	  z-index:1;
+	}	
+ .stab{position:relative;
+ display:block;font-size: 11px;}
+ 
+	.combo{	background-color: var(--primary-color); z-index:2;}
+	.filtere{ padding:5px;	background-color: var(--secondary-text-color); z-index:3; width:98%; position:fixed; bottom:45px}
+ 
+	paper-card.rate { @apply(--layout-horizontal);
+	background-color: var(--secondary-text-color); border-bottom:1px #999 solid;}
+	.rate-image {
+	  width: 90px;
+	  height: 70px;
+	  background: url('../../images/app/list.jpg');
+	  background-size: cover;
+	  margin:5px;
+	  border-radius: 4px;
+	}
+	.rate-content {
+	  @apply(--layout-flex);
+	  float: left;
+	}
+	.rate-header { font-size:14px; color:#666 !important;}
+	.rate-name { color: var(--paper-grey-600); font-size:11px;  margin: 3px 0 4px; }
+	.rate-name span {   margin: 10px 20px; font-size:11px; }
+	.onepi span{ color:#06F;}
+	 .heartl{ padding:7px 12px; color:#999; font-size:12px; background-color:#EAEAEA; margin:0 10px 0 70px; border-bottom:1px solid #CDCDCD}
+	paper-icon-button.rate-icon {
+	  --iron-icon-fill-color: white;
+	  --iron-icon-stroke-color: var(--paper-grey-600);	
+
+	}
+	.favers{
+    --iron-icon-height: 16px;
+    --iron-icon-width: 16px;
+	--iron-icon-fill-color: #F03;
+
+  }
+	.iconsearch{
+		--iron-icon-fill-color:#fff;
+	}
+ 	.iconfilter{
+		--iron-icon-fill-color:#0CC;
+	}
+	 
+	    a {
+    text-decoration: none;
+    color: var(--menu-link-color);
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+<!------------------------------ tab cotact-------------------------------->
+    div[role="listbox"] {
+      border: 1px solid #e5e5e5;
+    }
+    .avatar {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+        box-sizing: border-box;
+        background-color: #ddd;
+    }
+    .blue {
+      background-color: var(--paper-light-blue-300);
+    }
+   .list_contact{
+	   background-color:#FFF;
+   }
+   paper-icon-item{border-bottom:1px solid #999; background:#FFF;}
+   .tmarg{   border-bottom: 2px solid #b3b3b3;
+	  margin: 10px 0;
+	  padding-bottom: 10px;
+   }
+   .memenu{margin:10px;}
+   .notir{    align-items: center;
+    background-color: #ff4081;
+    border-radius: 50%;
+    color: white;
+    display: inline-block;
+    font-family: "Roboto","Noto",sans-serif;
+    font-weight: normal;
+    justify-content: center;
+    margin-bottom: 0;
+    position: absolute;
+    right: 55px;
+    top: 20px;
+    opacity: 1;
+    padding: 5px 11px;
+
+   }
+ 
+	paper-icon-button {
+	display: block;
+    height: 40px;
+    line-height: 1;
+    outline: medium none;
+    padding: 0 8px;
+    position: relative;
+    width: 40px ;
+    z-index: 0;
+   }
+    paper-icon-button.icontab {
+	display: block;
+    height: 30px;
+    line-height: 1;
+    outline: medium none;
+    padding: 0 8px;
+    position: relative;
+    width: 125px ;
+    z-index: 0;
+   }
+   .tabb{
+    --paper-tab-content:{
+		display: block !important;
+    flex: 1 0 auto  !important;
+	}
+	}
+    </style>
+ 
+  <paper-toolbar>
+      <paper-icon-button icon="menu"  id="paperToggle"  on-tap="menuAction" paper-drawer-toggle></paper-icon-button>
+        <div class="title">Title</div>
+      <paper-icon-button icon="more-vert" on-tap="moreAction"></paper-icon-button>
+   </paper-toolbar>
+
+   <iron-pages selected="{{selected}}">
+<!------------------------------- one page------>
+<div>
+    <paper-header-panel mode="waterfall-tall" tall-class="medium-tall" class="colorhead">
+  <div class="paper-header">
+<section class="catetop" style=" display:none">
+<iron-icon icon="menu" class="bigicon"></iron-icon>
+    <form is="iron-form" method="get" action="/" id="basic">
+    <paper-dropdown-menu class="catego" label="Cars" no-label-float name="cars" required>
+      <paper-menu class="dropdown-content">
+        <paper-item value="volvo">Volvo</paper-item>
+        <paper-item value="saab">Saab</paper-item>
+        <paper-item value="fiat">Fiat</paper-item>
+        <paper-item value="audi">Audi</paper-item>
+      </paper-menu>
+    </paper-dropdown-menu>
+</form>
+</section>
+  <google-map disable-default-ui zoom="15"></google-map>
+  <paper-fab icon="menu" title="menu" class="red"></paper-fab>
+
+  </div>
+  <section >
+  <div class="content">
+
+   <a data-route="send" href="{{baseUrl}}send"><paper-fab icon="add" title="add" class="blue"></paper-fab></a>
+  <section class="combo"> 
+<paper-input  class="combow" noLabelFloat="true"
+    placeholder="search for cats" autosave="test" results="5">
+     <paper-icon-button class="iconsearch" prefix icon="search"></paper-icon-button>
+</paper-input>
+ </section>  
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+<div class="rate-content">
+  <div class="card-content">
+    <div class="rate-header">  <a data-route="textnews" href="{{baseUrl}}textnews"> Rate this album Rate this album</a></div>
+    <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+    <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+  </div>
+</div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+<div class="rate-content">
+  <div class="card-content">
+    <div class="rate-header">  <a data-route="textnews" href="{{baseUrl}}textnews"> Rate this album Rate this album</a></div>
+    <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+    <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+  </div>
+</div>
+
+</paper-card>
+<paper-card class="rate"> 
+ <div class="rate-image"></div>
+  <div class="rate-content">
+  <div class="card-content">
+    <div class="rate-header">  <a data-route="textnews" href="{{baseUrl}}textnews"> Rate this album Rate this album</a></div>
+    <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+    <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+  </div>
+  </div>
+
+</paper-card>
+<paper-card class="rate"> 
+ <div class="rate-image"></div>
+  <div class="rate-content">
+  <div class="card-content">
+    <div class="rate-header">  <a data-route="textnews" href="{{baseUrl}}textnews"> Rate this album Rate this album</a></div>
+    <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+    <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+  </div>
+  </div>
+
+</paper-card>
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+  <div class="card-content">
+    <div class="rate-header">  <a data-route="textnews" href="{{baseUrl}}textnews"> Rate this album Rate this album</a></div>
+    <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+    <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+  </div>
+  </div>
+
+</paper-card>
+</div>
+</section>
+  </paper-header-panel>
+  <section class="filtere">
+<paper-input class="filters"  
+    placeholder="filter ..." autosave="test" results="5">
+     <paper-icon-button class="iconfilter" prefix icon="search"></paper-icon-button>
+</paper-input> 
+</section>
+</div>
+<!------------------------------- end one page-->
+<!------------------------------- start two page-->
+  <div>
+  <section class="list_contact">
+   <a data-route="addmember" href="{{baseUrl}}addmember"><paper-fab icon="add" title="add" class="blue" ></paper-fab></a> 
+<paper-header-panel mode="waterfall-tall" tall-class="medium-tall" class="colorhead">
+
+  <div class="content">
+<div role="listbox">
+<section>
+  <paper-icon-item>
+    <div item-icon><img class="avatar" src="../../images/app/list.jpg" /></div>
+    <paper-item-body two-line>
+      <div>Photos</div>
+    </paper-item-body>
+ <div secondary>Jan 9, 2014</div>
+  </paper-icon-item>
+  
+    <paper-icon-item>
+    <div item-icon><img class="avatar" src="../../images/app/list.jpg" /></div>
+    <paper-item-body two-line>
+      <div>Photos</div>
+    </paper-item-body>
+ <div secondary>Jan 9, 2014</div>
+  </paper-icon-item>
+  
+    <paper-icon-item>
+    <div item-icon><img class="avatar" src="../../images/app/list.jpg" /></div>
+    <paper-item-body two-line>
+      <div>Photos</div>
+    </paper-item-body>
+ <div secondary>Jan 9, 2014</div>
+  </paper-icon-item>
+  
+  <paper-icon-item>
+    <div item-icon><img class="avatar" src="../../images/app/list.jpg" /></div>
+    <paper-item-body two-line>
+      <div>Recipes</div>
+    </paper-item-body>
+ <div secondary>Jan 9, 2014</div>
+  </paper-icon-item>
+  </section>
+</div>
+</div>
+  </paper-header-panel>
+ </section> 
+  <section class="filtere">
+<paper-input class="filters"   label="filter ..."  no-label-float > 
+     <paper-icon-button class="iconfilter" prefix icon="search"></paper-icon-button>
+</paper-input> 
+</section>
+
+</div>
+<!------------------------------- end two page-->
+  <div>
+    <section class="list_contact">
+  <paper-fab icon="add" title="add" class="blue"></paper-fab>
+  
+<paper-tabs selected="{{ntab}}" noink  no-bar> 
+  <paper-tab>Crow News</paper-tab>
+  <paper-tab>Rss News</paper-tab>
+</paper-tabs>
+
+<iron-pages selected="{{ntab}}">
+  <div>
+  
+     <section class="tmarg">
+        <form is="iron-form" method="get" action="/" id="basic">
+        <paper-dropdown-menu  label="Cars" name="cars"  no-label-float >
+          <paper-menu class="dropdown-content">
+            <paper-item value="volvo">Volvo</paper-item>
+            <paper-item value="saab">Saab</paper-item>
+            <paper-item value="fiat">Fiat</paper-item>
+            <paper-item value="audi">Audi</paper-item>
+          </paper-menu>
+        </paper-dropdown-menu>
+     
+    </form>
+    </section> 
+  <paper-header-panel mode="waterfall-tall" tall-class="medium-tall" class="colorhead">
+    <div class="content">
+    <section >
+  <paper-card class="rate">  
+      <div class="rate-image"></div>
+        <div class="rate-content">
+          <div class="card-content">
+            <div class="rate-header">Rate this album Rate this album</div>
+            <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+            <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+          </div>
+        </div>
+     </paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+
+<paper-card class="rate">  
+<div class="rate-image"></div>
+  <div class="rate-content">
+    <div class="card-content">
+      <div class="rate-header">Rate this album Rate this album</div>
+      <div class="rate-name">1395/02/01<span>15:45 AM</span></div>
+      <div class="onepi"><span>42 KM</span> <a class="heartl"><iron-icon class="favers" icon="favorite"></iron-icon> 12 likes</a></div>
+    </div>
+  </div>
+</paper-card>
+</section>
+</div>
+  </paper-header-panel>
+</div>
+  <div>Page 2</div>
+</iron-pages>
+  
+ 
+  <section class="filtere">
+<paper-input class="filters"  label="filter ..."  no-label-float >
+     <paper-icon-button class="iconfilter" prefix icon="search"></paper-icon-button>
+</paper-input> 
+</section>
+  
+  </div>
+ <!------------------------------- end two three-------------> 
+  <div>
+  <div role="listbox">
+  
+  <section class="memenu">
+ 
+  <paper-icon-item>
+      <iron-icon icon="menu" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+      <div>Favorites</div>
+    </paper-item-body>
+<iron-icon icon="av:play-arrow"></iron-icon>
+  </paper-icon-item>
+  <a data-route="mynews" href="{{baseUrl}}mynews"> 
+  <paper-icon-item>
+      <iron-icon icon="menu" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+      <div>My News</div>
+    </paper-item-body>
+<iron-icon icon="av:play-arrow"></iron-icon>
+  </paper-icon-item>
+  </a>
+    <a data-route="rnotification" href="{{baseUrl}}rnotification"> 
+    <paper-icon-item>
+      <iron-icon icon="menu" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+      <div>My Notification <span class="notir">3</span></div>
+    </paper-item-body>
+<iron-icon icon="av:play-arrow"></iron-icon>
+  </paper-icon-item>
+  </a>
+  
+  </section>
+<br />
+<br />
+<br />
+
+    <section class="memenu">
+  <a data-route="myprofile" href="{{baseUrl}}myprofile"> 
+  <paper-icon-item>
+      <iron-icon icon="menu" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+      <div>Profile</div>
+    </paper-item-body>
+    <iron-icon icon="av:play-arrow"></iron-icon>
+  </paper-icon-item>
+  </a>
+    <a data-route="setting" href="{{baseUrl}}setting"> 
+    <paper-icon-item>
+      <iron-icon icon="menu" item-icon>
+    </iron-icon>
+    <paper-item-body two-line>
+      <div>Settings</div>
+    </paper-item-body>
+   <iron-icon icon="av:play-arrow"></iron-icon>
+  </paper-icon-item>
+  </a>
+  
+  </section>
+  
+  
+  </div>
+  </div>
+</iron-pages>
+<div class="tabbl">
+<paper-tabs selected="{{selected}}" autoselect noink no-slide align-bottom no-bar>
+  <paper-tab class="tabb"> <paper-icon-button class="icontab" icon="communication:location-on" on-tap="moreAction"></paper-icon-button><span class="stab">Location Search</span></paper-tab>
+  <paper-tab class="tabb"> <paper-icon-button class="icontab" icon="chrome-reader-mode" on-tap="moreAction"></paper-icon-button><span class="stab">Following News</span></paper-tab>
+  <paper-tab class="tabb"> <paper-icon-button class="icontab" icon="supervisor-account" on-tap="moreAction"></paper-icon-button><span class="stab">Contacts</span></paper-tab>
+  <paper-tab class="tabb"> <paper-icon-button class="icontab" icon="social:person" on-tap="moreAction"></paper-icon-button><span class="stab">me</span></paper-tab>
+</paper-tabs>
+ </div>
+  </template>
+
+  <script>
+
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-one',
+          properties: {
+          selected: {
+            type:Number,
+            value: 0,
+            notify: true
+          },
+		  ntab: {
+            type:Number,
+            value: 0,
+            notify: true
+          }
+        }
+   
+      });
+    })();
+  </script>
+</dom-module>
+>>>>>>>>

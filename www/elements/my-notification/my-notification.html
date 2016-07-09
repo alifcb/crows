@@ -1,0 +1,116 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<dom-module id="my-notification">
+  <template>
+    <style>
+      :host {
+        display: block;
+		--paper-item-icon-width{min-height:64px;}
+      }
+       span {
+        @apply(--paper-font-body1);
+      }
+      .paper-input-container-1 .unfocused-line.paper-input-container{background:#ccb200 none repeat scroll 0 0 !important; height:2px;}
+	  paper-button{ background-color: #ccb200;   display: block;
+    margin: 0 auto;
+    width: 95%; box-shadow:0  !important;}
+	  paper-dropdown-menu{width:100%;}
+	  iron-dropdown{width:50% !important}
+	     .list_contact{
+	   background-color:#FFF;
+   }
+  .tmarg{   border-bottom: 2px solid #b3b3b3;
+	  margin: 10px 0;
+	  padding-bottom: 10px;
+   }
+   .memenu{margin:10px;}
+   paper-icon-item{background:#FFF;
+   color:#666;
+   margin:2px 0;
+   --paper-item-icon:{ display:none}
+   }
+   
+
+   .paper-item-icon{display:none;}
+    a {
+
+    text-decoration: none;
+    color: var(--menu-link-color);
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+    </style>
+ 
+   <div role="listbox">
+  
+  <section class="memenu">
+
+    <paper-icon-item>
+    <paper-item-body  >
+      <div>Notifications</div>
+    </paper-item-body>
+   <iron-icon icon="social:notifications"></iron-icon>
+  </paper-icon-item>
+ 
+    <paper-icon-item>
+    <paper-item-body >
+    <div>Sound </div>
+    </paper-item-body>
+       <iron-icon icon="social:notifications"></iron-icon>
+    </paper-icon-item>
+    
+    <paper-icon-item>
+    <paper-item-body>
+    <div>Vibration </div>
+    </paper-item-body>
+       <iron-icon icon="social:notifications"></iron-icon>
+    </paper-icon-item>
+    
+    <paper-icon-item>
+    <paper-item-body>
+    <div>Notifications News </div>
+    </paper-item-body>
+       <iron-icon icon="social:notifications"></iron-icon>
+    </paper-icon-item>
+    
+  </section>
+<br />
+<br />
+
+<paper-button raised onclick="_submit(event)">Submit</paper-button>
+
+      <template >     </template>
+   
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-notification',
+      });
+    })();
+  </script>
+</dom-module>
